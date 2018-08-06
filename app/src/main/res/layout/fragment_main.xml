@@ -12,32 +12,65 @@
         <!--Logo-->
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="180dp"
+            android:layout_gravity="center"
+            android:layout_margin="0dp"
+            android:src="@drawable/logo" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/welcome" />
         <!--User-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="80dp"
+            android:text="Email"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email:..."
-            android:inputType="textEmailAddress" />
+            android:background="@drawable/email"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="90dp" />
         <!--Password-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Password"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password:..."
-            android:inputType="textPassword" />
+            android:background="@drawable/password"
+            android:inputType="textPassword"
+            android:paddingLeft="90dp" />
 
         <!--Loin-->
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:text="login"/>
+            android:layout_gravity="center"
+            android:background="@drawable/btnlogin"
+            android:text="login"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
         <!--Register-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Register"
             android:layout_gravity="center"
-            />
+            android:layout_marginTop="20dp"
+            android:text="New Register"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
