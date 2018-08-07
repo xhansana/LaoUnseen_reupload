@@ -1,6 +1,8 @@
 package chill_order.com.laosunseen.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -38,6 +40,17 @@ public class RegisterFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == getActivity().RESULT_OK) {
+
+            uri = data.getData();
+            try {
+
+                Bitmap bitmap = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri));
+                Bitmap bitmap1 = Bitmap.createScaledBitmap(bitmap, 700,600, true);
+                imageView.setImageBitmap(bitmap1);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         } else {
             Toast.makeText(getActivity(), "Please Choose Photo", Toast.LENGTH_SHORT).show();
