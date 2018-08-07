@@ -17,15 +17,16 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
         <!--Content-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@drawable/clear"
+            android:layout_marginBottom="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="60dp"
-            android:layout_marginBottom="40dp"
+            android:background="@drawable/clear"
+            android:orientation="vertical"
             android:paddingTop="30dp">
 
 
@@ -33,43 +34,45 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/img_user"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:src="@drawable/img_user" />
             <!--Name-->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="UserName"
-                android:layout_marginLeft="70dp"/>
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/uname"
-                android:layout_gravity="center"/>
-            <!--Email-->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Email"
-                android:layout_marginLeft="70dp"/>
+                android:layout_marginLeft="70dp"
+                android:text="UserName" />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/email"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:background="@drawable/uname" />
+            <!--Email-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:text="Email" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/email" />
             <!--Password-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Password"
-                android:layout_marginLeft="70dp"/>
+                android:layout_marginLeft="70dp"
+                android:text="Password" />
+
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/password"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:background="@drawable/password" />
         </LinearLayout>
 
 
