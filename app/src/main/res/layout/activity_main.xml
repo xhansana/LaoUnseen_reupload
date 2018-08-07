@@ -5,10 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
+    <ImageView
+        android:scaleType="fitXY"
+        android:background="@drawable/bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <!--content OF fragment-->
     <FrameLayout
-        android:background="@drawable/bg"
         android:id="@+id/contentMainFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
