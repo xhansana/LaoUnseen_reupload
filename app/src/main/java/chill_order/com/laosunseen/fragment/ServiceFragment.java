@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.zip.Inflater;
 
 import chill_order.com.laosunseen.MainActivity;
@@ -23,7 +25,7 @@ public class ServiceFragment extends Fragment {
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-//  Create Toolbar
+		//  Create Toolbar
 		createToolbar();
 
 	}    // Main Method
@@ -37,10 +39,18 @@ public class ServiceFragment extends Fragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.itemSignOut) {
-
+			signOut();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+
+	}
+
+	private void signOut() {
+
+		FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+		firebaseAuth.signOut();
+		getActivity().finish();
 
 	}
 

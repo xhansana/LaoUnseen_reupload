@@ -40,9 +40,8 @@ public class RegisterFragment extends Fragment {
 	private Uri uri;
 	private ImageView imageView;
 	private boolean aBoolean = true;
-	private String nameString;
-	private String emailString;
-	private String passwordString;
+	private String nameString, emailString, passwordString, uidString, pathURLString,
+			MyPostString;
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -98,22 +97,26 @@ public class RegisterFragment extends Fragment {
 
 	private void createAuthentication() {
 
-		FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+		final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 		firebaseAuth.createUserWithEmailAndPassword(emailString, passwordString)
 				.addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 					@Override
 					public void onComplete(@NonNull Task<AuthResult> task) {
 						if (task.isSuccessful()) {
 
-							Log.d("BAugV1", "onComplete: ");
+							uidString = firebaseAuth.getCurrentUser().getUid();
+							Log.d("8AugV1", "uidString: " + uidString);
+							//Check status On logcat
 						} else {
 							MyAlert myAlert = new MyAlert(getActivity());
 							myAlert.normalDialog("Cannot Register With Database!",
 									"Because: " + task.getException().getMessage());
+							//Check status On logcat
 							Log.d("BAugV1", "Error" + task.getException().getMessage());
 						}
 					}
 				});
+
 
 	}
 
@@ -126,6 +129,9 @@ public class RegisterFragment extends Fragment {
 			@Override
 			public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 				Toast.makeText(getActivity(), "Success Upload Photo", Toast.LENGTH_SHORT).show();
+
+				findPathURLphoto();
+
 			}
 		}).addOnFailureListener(new OnFailureListener() {
 			@Override
@@ -133,7 +139,13 @@ public class RegisterFragment extends Fragment {
 				Toast.makeText(getActivity(), "Cannot UploadPhoto", Toast.LENGTH_SHORT).show();
 			}
 		});
-	}// upload Photo
+	}   // upload Photo
+
+	private void findPathURLphoto() {
+
+		
+
+	}
 
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
