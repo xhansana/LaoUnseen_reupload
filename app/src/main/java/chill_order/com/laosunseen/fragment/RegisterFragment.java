@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +19,16 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import chill_order.com.laosunseen.MainActivity;
 import chill_order.com.laosunseen.R;
@@ -29,6 +40,9 @@ public class RegisterFragment extends Fragment {
 	private Uri uri;
 	private ImageView imageView;
 	private boolean aBoolean = true;
+	private String nameString;
+	private String emailString;
+	private String passwordString;
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -60,9 +74,9 @@ public class RegisterFragment extends Fragment {
 
 //		Get Value from EditText
 
-		String nameString = nameEditText.getText().toString().trim();
-		String emailString = emailEditText.getText().toString().trim();
-		String passwordString = passwordEditText.getText().toString().trim();
+		nameString = nameEditText.getText().toString().trim();
+		emailString = emailEditText.getText().toString().trim();
+		passwordString = passwordEditText.getText().toString().trim();
 
 //		Check Choose Photo
 		if (aBoolean) {
@@ -77,9 +91,49 @@ public class RegisterFragment extends Fragment {
 			myAlert.normalDialog("Have Space", "Please Fill All Every Blank!");
 		} else {
 //          No Space
-
+			createAuthentication();
+//			uploadPhotoToFirebase();
 		}
 	}
+
+	private void createAuthentication() {
+
+		FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+		firebaseAuth.createUserWithEmailAndPassword(emailString, passwordString)
+				.addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+					@Override
+					public void onComplete(@NonNull Task<AuthResult> task) {
+						if (task.isSuccessful()) {
+
+							Log.d("BAugV1", "onComplete: ");
+						} else {
+							MyAlert myAlert = new MyAlert(getActivity());
+							myAlert.normalDialog("Cannot Register With Database!",
+									"Because: " + task.getException().getMessage());
+							Log.d("BAugV1", "Error" + task.getException().getMessage());
+						}
+					}
+				});
+
+	}
+
+	private void uploadPhotoToFirebase() {
+
+		FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+		StorageReference storageReference = firebaseStorage.getReference();
+		StorageReference storageReference1 = storageReference.child("Avata/" + nameString);
+		storageReference1.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+			@Override
+			public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+				Toast.makeText(getActivity(), "Success Upload Photo", Toast.LENGTH_SHORT).show();
+			}
+		}).addOnFailureListener(new OnFailureListener() {
+			@Override
+			public void onFailure(@NonNull Exception e) {
+				Toast.makeText(getActivity(), "Cannot UploadPhoto", Toast.LENGTH_SHORT).show();
+			}
+		});
+	}// upload Photo
 
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {

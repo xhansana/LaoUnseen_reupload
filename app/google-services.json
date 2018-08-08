@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "579124735167",
+    "firebase_url": "https://samsung-tech-2018.firebaseio.com",
+    "project_id": "samsung-tech-2018",
+    "storage_bucket": "samsung-tech-2018.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579124735167:android:36f706f622bb8c75",
+        "android_client_info": {
+          "package_name": "chill_order.com.laosunseen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "579124735167-hrds5enkepgdd90hgran6dg6332rh6kr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "chill_order.com.laosunseen",
+            "certificate_hash": "44216ae9b003d316a39cd844cc347e4de9e2e4d0"
+          }
+        },
+        {
+          "client_id": "579124735167-gcg715v2nvv3cpf2qe6r3o017370nb47.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQMcloGYSAN4AD7eF2hKYAJAm6UDDuxA4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "579124735167-gcg715v2nvv3cpf2qe6r3o017370nb47.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
