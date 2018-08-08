@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -53,6 +54,16 @@ public class RegisterFragment extends Fragment {
 
 	private void uploadProcess() {
 
+		EditText nameEditText = getView().findViewById(R.id.edtUName);
+		EditText emailEditText = getView().findViewById(R.id.edtEMail);
+		EditText passwordEditText = getView().findViewById(R.id.edtPass);
+
+//		Get Value from EditText
+
+		String nameString = nameEditText.getText().toString().trim();
+		String emailString = emailEditText.getText().toString().trim();
+		String passwordString = passwordEditText.getText().toString().trim();
+
 //		Check Choose Photo
 		if (aBoolean) {
 //			None Choose Photo
@@ -60,10 +71,14 @@ public class RegisterFragment extends Fragment {
 			myAlert.normalDialog("ຍັງບໍ່ມີຮູບພາບ",
 					"ກະລຸນາເລືອກຮູບກ່ອນ!");
 
+		} else if (nameString.isEmpty() || emailString.isEmpty() || passwordString.isEmpty()) {
+//			Have space
+			MyAlert myAlert = new MyAlert(getActivity());
+			myAlert.normalDialog("Have Space", "Please Fill All Every Blank!");
 		} else {
+//          No Space
 
 		}
-
 	}
 
 	@Override
@@ -96,7 +111,7 @@ public class RegisterFragment extends Fragment {
 			}
 
 		} else {
-			Toast.makeText(getActivity(), "Please Choose Photo", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity(), "ກະລຸນາເລືອກຮູບພາບ", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -108,7 +123,7 @@ public class RegisterFragment extends Fragment {
 
 				Intent intent = new Intent(Intent.ACTION_PICK);
 				intent.setType("image/*");
-				startActivityForResult(Intent.createChooser(intent, "Plese Choose App"), 1);
+				startActivityForResult(Intent.createChooser(intent, "ກະລຸນາເລືອກ App"), 1);
 
 			}
 		});
@@ -118,8 +133,9 @@ public class RegisterFragment extends Fragment {
 	private void createToolbar() {
 		Toolbar toolbar = getView().findViewById(R.id.toolbarRegister);
 		((MainActivity) getActivity()).setSupportActionBar(toolbar);
-		((MainActivity) getActivity()).getSupportActionBar().setTitle("Register New User");
-		((MainActivity) getActivity()).getSupportActionBar().setSubtitle("Please Choose Photo And Fill All Blank!");
+		((MainActivity) getActivity()).getSupportActionBar().setTitle("ສະໝັກບັນຊີຜູ່້ໃຊ້ໃໝ່");
+		((MainActivity) getActivity()).getSupportActionBar().setSubtitle("ກະລຸນາເລືອກຮູບພາບ ແລະ " +
+				                                                                 "ໃສ່ຂໍ້ຄວາມໃຫ້ຄົບກ່ອນ!");
 		((MainActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
 		((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		toolbar.setNavigationOnClickListener(new View.OnClickListener() {

@@ -6,6 +6,6 @@
         app:showAsAction="always"
         android:icon="@drawable/ic_action_upload"
         android:id="@+id/itemUpload"
-        android:title="Upload"
+        android:title="ອັບໂຫຼດ"
         />
 </menu>

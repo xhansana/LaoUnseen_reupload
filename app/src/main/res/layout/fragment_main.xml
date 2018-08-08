@@ -66,7 +66,7 @@
             android:layout_gravity="center"
             android:background="@drawable/btnlogin"
             android:paddingBottom="20dp"
-            android:text="login"
+            android:text="ເຂົ້າສູ່ລະບົບ"
             android:textColor="#ffffff"
             android:textSize="@dimen/h2"
             android:textStyle="bold" />
@@ -78,7 +78,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:clickable="true"
-            android:text="Register New Account"
+            android:text="ສະໝັກບັນຊີຜູ້ໃຊ້ໃໝ່"
             android:textColor="#ffffff"
             android:textSize="@dimen/h2"
             android:textStyle="bold" />
