@@ -83,7 +83,6 @@
             android:textSize="@dimen/h2"
             android:textStyle="bold" />
 
-
     </LinearLayout>
 
 
