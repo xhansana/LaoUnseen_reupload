@@ -2,6 +2,7 @@ package chill_order.com.laosunseen.fragment;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import chill_order.com.laosunseen.R;
+import chill_order.com.laosunseen.ServicesActivity;
 import chill_order.com.laosunseen.utility.MyAlert;
 
 public class MainFragment extends Fragment {
@@ -26,8 +28,10 @@ public class MainFragment extends Fragment {
     private String emailString, passwordString;
 
     private ProgressDialog progressDialog;
+
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {//Method main
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        //Method main
         super.onActivityCreated(savedInstanceState);
 //Check Status
         checkStatus();
@@ -44,12 +48,13 @@ public class MainFragment extends Fragment {
     private void checkStatus() {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() != null) {
-            getActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.contentMainFragment, new ServiceFragment())
-                    .commit();
+            moveToService();
         }
     }
+
+    private void moveToService() {
+        startActivity(new Intent(getActivity(), ServicesActivity.class));
+    }   // move to services
 
     private void registerController() {
         TextView textView = getView().findViewById(R.id.txtRegist);
@@ -101,28 +106,25 @@ public class MainFragment extends Fragment {
 
     private void checkAuthentication() {
 //				Replace fragment Login To Service
-                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                firebaseAuth.signInWithEmailAndPassword(emailString, passwordString)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(getContext(), "Welcome", Toast.LENGTH_SHORT).show();
-                                    getActivity()
-                                            .getSupportFragmentManager()
-                                            .beginTransaction()
-                                            .replace(R.id.contentMainFragment, new ServiceFragment())
-                                            .addToBackStack(null)
-                                            .commit();
-                                    progressDialog.dismiss();
-                                } else {
-                                    progressDialog.dismiss();
-                                    MyAlert myAlert = new MyAlert(getActivity());
-                                    myAlert.normalDialog("Email Or Password Incorrect",
-                                            "Please Try Again!!!");
-                                }
-                            }
-                        });
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.signInWithEmailAndPassword(emailString, passwordString)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getContext(), "Welcome", Toast.LENGTH_SHORT).show();
+//                            Move To Services
+                            moveToService();
+
+                            progressDialog.dismiss();
+                        } else {
+                            progressDialog.dismiss();
+                            MyAlert myAlert = new MyAlert(getActivity());
+                            myAlert.normalDialog("Email Or Password Incorrect",
+                                    "Please Try Again!!!");
+                        }
+                    }
+                });
 
     }
 

@@ -22,49 +22,21 @@ import chill_order.com.laosunseen.R;
 
 public class ServiceFragment extends Fragment {
 
-	@Override
-	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		//  Create Toolbar
-		createToolbar();
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-	}    // Main Method
 
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.menu_service, menu);
-	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == R.id.itemSignOut) {
-			signOut();
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 
-	}
+    }    // Main Method
 
-	private void signOut() {
 
-		FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-		firebaseAuth.signOut();
-		getActivity().finish();
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-	}
-
-	private void createToolbar() {
-		Toolbar toolbar = getView().findViewById(R.id.toolbarService);
-		((MainActivity)getActivity()).setSupportActionBar(toolbar);
-		setHasOptionsMenu(true);
-	}
-
-	@Nullable
-	@Override
-	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-		View view = inflater.inflate(R.layout.fragment_service, container, false);
-		return view;
-	}
+        View view = inflater.inflate(R.layout.fragment_service, container, false);
+        return view;
+    }
 }

@@ -168,7 +168,6 @@ public class RegisterFragment extends Fragment {
                 Toast.makeText(getActivity(), "Success Upload Photo", Toast.LENGTH_SHORT).show();
                 findPathURLphoto();
                 createPost();
-                createDatabase();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -199,6 +198,8 @@ public class RegisterFragment extends Fragment {
                             pathURLString = urlStrings[0];
                             Log.d("9AugV1", "urlStrings[0] ==> " + urlStrings[0]);
                             Log.d("9AugV1", "pathURL ==> " + pathURLString);
+
+                            createDatabase();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -226,6 +227,8 @@ public class RegisterFragment extends Fragment {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference()
                 .child("User");
+
+        Log.d("9AugV1", "createDatabase: pathURL ==> " + pathURLString);
 
         databaseReference.child(uidString).setValue(userModel)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
