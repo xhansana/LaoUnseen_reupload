@@ -149,7 +149,7 @@ public class RegisterFragment extends Fragment {
                 });
 
 
-    }
+    }   //Create Authentication
 
     private void uploadPhotoToFirebase() {
 
