@@ -34,20 +34,65 @@
     <!--Drawer Menu-->
     <LinearLayout
 
-        android:layout_gravity="start"
-        android:layout_width="320dp"
-        android:layout_height="match_parent"
-        android:background="#63ccff"
-        android:orientation="vertical">
+    android:layout_gravity="start"
+    android:layout_width="320dp"
+    android:layout_height="match_parent"
+    android:background="#63ccff"
+    android:orientation="vertical">
 
+
+    <!--Show name And Picture-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!--Name-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Drawe Menu"
-            android:textSize="@dimen/h2"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Lao UnSeen"
+            android:textSize="25dp"
             android:textStyle="bold" />
+
+        <!--Icon-->
+
+
+    </LinearLayout>
+
+    <!--Exit-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="200dp"
+        android:orientation="horizontal">
+
+        <!--Icon-->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_exit_bl"
+            />
+
+        <!--Text-->
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exit"
+            android:textSize="@dimen/h2"
+            android:clickable="true"
+            android:id="@+id/txtExit"
+            />
+
 
     </LinearLayout>
 
 
-</android.support.v4.widget.DrawerLayout>
+</LinearLayout>
+
+
+    </android.support.v4.widget.DrawerLayout>

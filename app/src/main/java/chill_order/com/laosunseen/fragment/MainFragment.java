@@ -53,7 +53,9 @@ public class MainFragment extends Fragment {
     }
 
     private void moveToService() {
+
         startActivity(new Intent(getActivity(), ServicesActivity.class));
+        getActivity().finish();
     }   // move to services
 
     private void registerController() {
