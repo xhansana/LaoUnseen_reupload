@@ -95,12 +95,16 @@ public class RegisterFragment extends Fragment {
             MyAlert myAlert = new MyAlert(getActivity());
             myAlert.normalDialog("Non Choose Photo",
                     "Please Choose Photo");
+
+            progressDialog.dismiss();
         } else if (nameString.isEmpty() || emailString.isEmpty() || passwordString.isEmpty()) {
 
 //            Have Space
             MyAlert myAlert = new MyAlert(getActivity());
             myAlert.normalDialog("Have Space",
                     "Please Fill All Every Blank");
+
+            progressDialog.dismiss();
 
         } else {
 
@@ -165,7 +169,6 @@ public class RegisterFragment extends Fragment {
                 findPathURLphoto();
                 createPost();
                 createDatabase();
-                progressDialog.dismiss();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -232,6 +235,8 @@ public class RegisterFragment extends Fragment {
                         getActivity().getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.contentMainFragment, new ServiceFragment())
                                 .commit();
+
+                        progressDialog.dismiss();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -259,10 +264,12 @@ public class RegisterFragment extends Fragment {
     @Override//after select Image
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode == getActivity().RESULT_OK) {
 
             uri = data.getData();
             aBoolean = false;
+
             try {
 
                 Bitmap bitmap = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri));
@@ -273,9 +280,12 @@ public class RegisterFragment extends Fragment {
                 e.printStackTrace();
             }
 
+
         } else {
-            Toast.makeText(getActivity(), "ກະລຸນາເລືອກຮູບພາບ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Please Choose Photo", Toast.LENGTH_SHORT).show();
+
         }
+
     }
 
     private void photoContrtoller() {
@@ -286,11 +296,10 @@ public class RegisterFragment extends Fragment {
 
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
-                startActivityForResult(Intent.createChooser(intent, "ກະລຸນາເລືອກ App"), 1);
+                startActivityForResult(Intent.createChooser(intent, "Please Choose App"), 1);
 
             }
         });
-
     }
 
     private void createToolbar() {
