@@ -1,5 +1,6 @@
 package chill_order.com.laosunseen.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,13 +28,19 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import chill_order.com.laosunseen.MainActivity;
 import chill_order.com.laosunseen.R;
 import chill_order.com.laosunseen.utility.MyAlert;
+import chill_order.com.laosunseen.utility.UserModel;
 
 public class RegisterFragment extends Fragment {
 
@@ -41,7 +49,8 @@ public class RegisterFragment extends Fragment {
     private ImageView imageView;
     private boolean aBoolean = true;
     private String nameString, emailString, passwordString, uidString, pathURLString,
-            MyPostString;
+            myPostString;
+    private ProgressDialog progressDialog;
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -66,36 +75,58 @@ public class RegisterFragment extends Fragment {
     }
 
     private void uploadProcess() {
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setTitle("Upload Value Process");
+        progressDialog.setMessage("Please Wait few Minus...");
+        progressDialog.show();
 
         EditText nameEditText = getView().findViewById(R.id.edtUName);
         EditText emailEditText = getView().findViewById(R.id.edtEMail);
         EditText passwordEditText = getView().findViewById(R.id.edtPass);
 
-//		Get Value from EditText
-
+//        Get Value From EditText
         nameString = nameEditText.getText().toString().trim();
         emailString = emailEditText.getText().toString().trim();
         passwordString = passwordEditText.getText().toString().trim();
 
-//		Check Choose Photo
+//        Check Choose Photo
         if (aBoolean) {
-//			None Choose Photo
+//            Non Choose Photo
             MyAlert myAlert = new MyAlert(getActivity());
-            myAlert.normalDialog("ຍັງບໍ່ມີຮູບພາບ",
-                    "ກະລຸນາເລືອກຮູບກ່ອນ!");
-
+            myAlert.normalDialog("Non Choose Photo",
+                    "Please Choose Photo");
         } else if (nameString.isEmpty() || emailString.isEmpty() || passwordString.isEmpty()) {
-//			Have space
+
+//            Have Space
             MyAlert myAlert = new MyAlert(getActivity());
-            myAlert.normalDialog("Have Space", "Please Fill All Every Blank!");
+            myAlert.normalDialog("Have Space",
+                    "Please Fill All Every Blank");
+
         } else {
-//          No Space
+
+//            No Space
             createAuthentication();
-			uploadPhotoToFirebase();
+            uploadPhotoToFirebase();
+
         }
+
+
+    }
+
+
+    private void createPost() {
+
+        ArrayList<String> stringArrayList = new ArrayList<>();
+        stringArrayList.add("Hello");
+        myPostString = stringArrayList.toString();
+        Log.d("9AugV1", "myPost ==> " + myPostString);
+
     }
 
     private void createAuthentication() {
+
+
+        Log.d("8AugV1", "CreateAuthen Work");
 
         final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.createUserWithEmailAndPassword(emailString, passwordString)
@@ -105,14 +136,14 @@ public class RegisterFragment extends Fragment {
                         if (task.isSuccessful()) {
 
                             uidString = firebaseAuth.getCurrentUser().getUid();
-                            Log.d("8AugV1", "uidString: " + uidString);
-                            //Check status On logcat
+                            Log.d("8AugV1", "uidString ==> " + uidString);
+
                         } else {
                             MyAlert myAlert = new MyAlert(getActivity());
-                            myAlert.normalDialog("Cannot Register With Database!",
-                                    "Because: " + task.getException().getMessage());
-                            //Check status On logcat
-                            Log.d("BAugV1", "Error" + task.getException().getMessage());
+                            myAlert.normalDialog("Cannot Register",
+                                    "Because ==> " + task.getException().getMessage());
+                            Log.d("8AugV1", "Error ==> " + task.getException().getMessage());
+                            progressDialog.dismiss();
                         }
                     }
                 });
@@ -125,20 +156,27 @@ public class RegisterFragment extends Fragment {
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         StorageReference storageReference = firebaseStorage.getReference();
         StorageReference storageReference1 = storageReference.child("Avata/" + nameString);
+
+
         storageReference1.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Toast.makeText(getActivity(), "Success Upload Photo", Toast.LENGTH_SHORT).show();
-
                 findPathURLphoto();
-
+                createPost();
+                createDatabase();
+                progressDialog.dismiss();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getActivity(), "Cannot UploadPhoto", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Cannot Upload Photo", Toast.LENGTH_SHORT).show();
+                Log.d("8AugV1", "e==> " + e.toString());
+                progressDialog.dismiss();
             }
         });
+
+
     }   // upload Photo
 
     private void findPathURLphoto() {
@@ -147,28 +185,64 @@ public class RegisterFragment extends Fragment {
 
             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
             StorageReference storageReference = firebaseStorage.getReference();
-            final String[] urlString = new String[1];
+            final String[] urlStrings = new String[1];
 
             storageReference.child("Avata").child(nameString)
                     .getDownloadUrl()
                     .addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-
-                            urlString[0] = uri.toString();
-                            pathURLString = urlString[0];
-                            Log.d("9AugV1", "urlString: " + pathURLString);
-
+                            urlStrings[0] = uri.toString();
+                            pathURLString = urlStrings[0];
+                            Log.d("9AugV1", "urlStrings[0] ==> " + urlStrings[0]);
+                            Log.d("9AugV1", "pathURL ==> " + pathURLString);
                         }
-                    });
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d("9AugV1", "e Error ==> " + e.toString());
+                }
+            });
 
 
         } catch (Exception e) {
-
             e.printStackTrace();
-
         }
+
+
     } //File Path
+
+    private void createDatabase() {
+
+        UserModel userModel = new UserModel(uidString, nameString, emailString, pathURLString, myPostString);
+
+
+        UserModel userModel1 = new UserModel(uidString, nameString, emailString,
+                pathURLString, myPostString);
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference()
+                .child("User");
+
+        databaseReference.child(uidString).setValue(userModel)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getActivity(), "Register Success", Toast.LENGTH_SHORT).show();
+                        getActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.contentMainFragment, new ServiceFragment())
+                                .commit();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("9AugV1", "e CreateDatabase ==> " + e.toString());
+            }
+        });
+
+
+    }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
