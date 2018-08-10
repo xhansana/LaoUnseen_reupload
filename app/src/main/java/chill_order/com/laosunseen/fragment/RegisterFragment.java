@@ -39,6 +39,7 @@ import java.util.ArrayList;
 
 import chill_order.com.laosunseen.MainActivity;
 import chill_order.com.laosunseen.R;
+import chill_order.com.laosunseen.ServicesActivity;
 import chill_order.com.laosunseen.utility.MyAlert;
 import chill_order.com.laosunseen.utility.UserModel;
 
@@ -73,6 +74,12 @@ public class RegisterFragment extends Fragment {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void moveToService() {
+
+        startActivity(new Intent(getActivity(), ServicesActivity.class));
+        getActivity().finish();
+    }   // move to services
 
     private void uploadProcess() {
         progressDialog = new ProgressDialog(getActivity());
@@ -235,10 +242,7 @@ public class RegisterFragment extends Fragment {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(getActivity(), "Register Success", Toast.LENGTH_SHORT).show();
-                        getActivity().getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.contentMainFragment, new ServiceFragment())
-                                .commit();
-
+                        moveToService();
                         progressDialog.dismiss();
                     }
                 }).addOnFailureListener(new OnFailureListener() {

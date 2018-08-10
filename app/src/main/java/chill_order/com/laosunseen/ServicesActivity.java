@@ -21,6 +21,10 @@ public class ServicesActivity extends AppCompatActivity {
         addFragment(savedInstanceState);
 
 //        Exit Controller
+        exitcontroller();
+        }
+
+    private void exitcontroller() {
         TextView textView = findViewById(R.id.txtExit);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,7 +35,7 @@ public class ServicesActivity extends AppCompatActivity {
 
 
             }
-        });
+    });
 
     }   //Main Method
 
@@ -43,4 +47,4 @@ public class ServicesActivity extends AppCompatActivity {
         }
     }
 
-}
+}  // MainClass

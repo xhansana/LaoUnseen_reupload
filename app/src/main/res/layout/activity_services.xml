@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <!--Toolbar-->
 
@@ -33,20 +33,12 @@
 
     <!--Drawer Menu-->
     <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#63ccff"
+        android:orientation="vertical">
 
-    android:layout_gravity="start"
-    android:layout_width="320dp"
-    android:layout_height="match_parent"
-    android:background="#63ccff"
-    android:orientation="vertical">
-
-
-    <!--Show name And Picture-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <!--Name-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -56,43 +48,57 @@
             android:textSize="25dp"
             android:textStyle="bold" />
 
-        <!--Icon-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--Show name And Picture-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/linearBottom"
+                android:orientation="horizontal">
+                <!--Name-->
+
+
+                <!--Icon-->
+
+
+            </LinearLayout>
+
+            <!--Exit-->
+            <LinearLayout
+                android:id="@+id/linearBottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal">
+
+                <!--Icon-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_action_exit_bl" />
+
+                <!--Text-->
+
+                <TextView
+                    android:id="@+id/txtExit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:clickable="true"
+                    android:text="Exit"
+                    android:textColor="#FF5733"
+                    android:textSize="@dimen/h2" />
+
+
+            </LinearLayout>
+        </RelativeLayout>
 
 
     </LinearLayout>
 
-    <!--Exit-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="200dp"
-        android:orientation="horizontal">
 
-        <!--Icon-->
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_exit_bl"
-            />
-
-        <!--Text-->
-
-        <TextView
-            android:layout_marginTop="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Exit"
-            android:textSize="@dimen/h2"
-            android:clickable="true"
-            android:id="@+id/txtExit"
-            />
-
-
-    </LinearLayout>
-
-
-</LinearLayout>
-
-
-    </android.support.v4.widget.DrawerLayout>
+</android.support.v4.widget.DrawerLayout>
