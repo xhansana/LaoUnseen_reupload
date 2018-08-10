@@ -78,7 +78,7 @@ public class ServiceFragment extends Fragment {
         });
     }
 
-    private void  postController() {
+    private void postController() {
         Button button = getView().findViewById(R.id.btnPost);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +88,7 @@ public class ServiceFragment extends Fragment {
                 if (postSring.isEmpty()) {
                     MyAlert myAlert = new MyAlert(getContext());
                     myAlert.normalDialog("Post False!"
-                            , "Please type On Post");
+                            , "Please type On Post...");
                 } else {
 
                     editCurrentPost(postSring);

@@ -3,4 +3,5 @@
     <dimen name="margintop_login">90dp</dimen>
     <dimen name="marginbot_login">90dp</dimen>
     <dimen name="h2">18sp</dimen>
+    <dimen name="h1">24sp</dimen>
 </resources>
